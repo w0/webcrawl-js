@@ -21,4 +21,24 @@ function normalizeURL(url) {
   return normalized
 }
 
-export { normalizeURL }
+import { JSDOM } from 'jsdom'
+
+function getURLsFromHTML(html, baseURL) {
+  const theDOM = new JSDOM(html)
+  const allAnchors = theDOM.window.document.querySelectorAll('a')
+
+  const foundURLs = []
+
+  for (const anchor of allAnchors) {
+    if (anchor.toString().startsWith(baseURL)) {
+      foundURLs.push(anchor.toString())
+    } else {
+      foundURLs.push(`${baseURL}${anchor.toString()}`)
+    }
+    
+  }
+
+  return foundURLs
+}
+
+export { normalizeURL, getURLsFromHTML }

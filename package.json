@@ -15,5 +15,8 @@
   "jest": {
     "transform": {}
   },
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "jsdom": "^24.1.1"
+  }
 }
