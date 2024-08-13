@@ -30,12 +30,12 @@ function getURLsFromHTML(html, baseURL) {
   const foundURLs = []
 
   for (const anchor of allAnchors) {
-    if (anchor.toString().startsWith(baseURL)) {
-      foundURLs.push(anchor.toString())
-    } else {
-      foundURLs.push(`${baseURL}${anchor.toString()}`)
+    try {
+      const url = new URL(anchor.toString(), baseURL)
+      foundURLs.push(url.href)
+    } catch (err) {
+      console.log(err)
     }
-    
   }
 
   return foundURLs
